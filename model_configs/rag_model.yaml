@@ -5,7 +5,7 @@ model:
     compile: false
   rag_params:
     embedding_model: "thenlper/gte-small" # Change this to your own embedding model name on huggingface hub
-    docs_name_or_path: "m-ric/huggingface_doc" # Change this to your own document name or path on huggingface hub
+    docs_name_or_path: "igzi/pile-stem-corpus" # Change this to your own document name or path on huggingface hub
     similarity_fn: cosine # Select the similarity function to use, options are: cosine, dot_product, max_inner_product, jaccard
     top_k: 5 # Choose the number of documents to retrieve
 
