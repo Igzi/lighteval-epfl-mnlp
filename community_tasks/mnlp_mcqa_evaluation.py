@@ -8,6 +8,7 @@ from .mnlp_mcqa_evals_arc_easy import task_arc_easy
 from .mnlp_mcqa_evals_arc_challenge import task_arc_challenge
 from .mnlp_mcqa_evals_gpqa import task_gpqa
 from .mnlp_mcqa_evals_musr import task_musr
+from .mnlp_mcqa_evals_nlp4education import task_nlp4education
 
 def mmlu_harness(line, task_name: str = None):
     topic = "knowledge and kills in advanced master-level STEM courses"
@@ -41,4 +42,4 @@ task_example = LightevalTaskConfig(
 )
 
 # STORE YOUR EVALS
-TASKS_TABLE = [task_example, task_mmlu, task_mmlu_pro, task_arc_easy, task_arc_challenge, task_gpqa, task_musr]
+TASKS_TABLE = [task_example, task_mmlu, task_mmlu_pro, task_arc_easy, task_arc_challenge, task_gpqa, task_musr, task_nlp4education]

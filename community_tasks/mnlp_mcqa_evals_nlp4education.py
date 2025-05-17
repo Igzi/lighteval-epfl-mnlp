@@ -19,12 +19,12 @@ def mmlu_harness(line, task_name: str = None):
         instruction=f"The following are multiple choice questions (with answers) about {topic.replace('_', ' ')}.\n\n",
     )
 
-task = LightevalTaskConfig(
+task_nlp4education = LightevalTaskConfig(
     name="mnlp_mcqa_evals_nlp4education",
     prompt_function=mmlu_harness,
     suite=["community"],
     hf_subset="",
-    hf_repo="https://huggingface.co/datasets/igzi/nlp4education",  # Change the repo name to the evaluation dataset that you compiled
+    hf_repo="igzi/nlp4education",  # Change the repo name to the evaluation dataset that you compiled
     hf_avail_splits=["train"],
     evaluation_splits=["train"],
     metric=[Metrics.loglikelihood_acc, Metrics.loglikelihood_acc_norm_nospace],
@@ -33,6 +33,3 @@ task = LightevalTaskConfig(
     trust_dataset=True,
     limited_num_samples=0,  # Set to 0 to use all samples, specify a number to limit the number of samples for debugging purposes
 )
-
-# STORE YOUR EVALS
-TASKS_TABLE = [task]
