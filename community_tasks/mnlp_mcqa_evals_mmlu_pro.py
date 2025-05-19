@@ -14,7 +14,7 @@ def mmlu_harness(line, task_name: str = None):
     return Doc(
         task_name=task_name,
         query=prompt,
-        choices=[" A", " B", " C", " D"],
+        choices=[" A", " B", " C", " D", " E", " F", " G", " H", " I", " J"],
         gold_index=gold_ix,
         instruction=f"The following are multiple choice questions (with answers) about {topic.replace('_', ' ')}.\n\n",
     )

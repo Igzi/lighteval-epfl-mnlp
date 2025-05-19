@@ -319,7 +319,7 @@ class EmbeddingModel(TransformersModel):
             chunk_overlap=int(chunk_size / 10),
             add_start_index=True,
             strip_whitespace=True,
-            separators=MARKDOWN_SEPARATORS
+            separators=MARKDOWN_SEPARATORS,
         )
 
         docs_processed = []
@@ -349,12 +349,9 @@ class EmbeddingModel(TransformersModel):
                 page_content=doc["text"],
                 metadata={"source": doc["source"]}) for doc in tqdm(ds, desc="Loading KB")
         ]
-        print(len(knowledge_base))
 
         docs_processed = self._split_documents(
              self._max_length, knowledge_base)
-
-        print(len(docs_processed))
 
         texts = [d.page_content for d in docs_processed]
         metadatas = [d.metadata for d in docs_processed]
@@ -419,7 +416,6 @@ class EmbeddingModel(TransformersModel):
                  index_key = "IndexFlatL2 (fallback)"
                  logger.info(f"Switched to {index_key} due to insufficient training data.")
             elif index_key.startswith("IVF"): # Only train if IVF and enough data
-                print("OK")
                 res = faiss.StandardGpuResources()
                 device_id = 0  # or whichever GPU you want
                 index = faiss.index_cpu_to_gpu(res, device_id, index)

@@ -1,13 +1,13 @@
 model:
   base_params:
-    model_args: "pretrained=Qwen/Qwen3-0.6B,revision=main,trust_remote_code=true" # Change this to your own model name on huggingface hub
+    model_args: "pretrained=Qwen/Qwen3-0.6B-Base,revision=main,trust_remote_code=true" # Change this to your own model name on huggingface hub
     dtype: "float16"
     compile: false
   rag_params:
-    embedding_model: "thenlper/gte-small" # Change this to your own embedding model name on huggingface hub
-    docs_name_or_path: "igzi/pile-stem-corpus" # Change this to your own document name or path on huggingface hub
+    embedding_model: "BAAI/bge-small-en-v1.5" # Change this to your own embedding model name on huggingface hub
+    docs_name_or_path: "igzi/pile-stem-corpus-filtered" # Change this to your own document name or path on huggingface hub
     similarity_fn: cosine # Select the similarity function to use, options are: cosine, dot_product, max_inner_product, jaccard
-    top_k: 5 # Choose the number of documents to retrieve
+    top_k: 3 # Choose the number of documents to retrieve
 
   # Ignore this section, do not modify!
   merged_weights:
