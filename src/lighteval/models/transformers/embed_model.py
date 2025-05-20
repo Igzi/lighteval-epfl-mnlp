@@ -341,7 +341,7 @@ class EmbeddingModel(TransformersModel):
         ds = (
             load_dataset(self.docs_name_or_path, split="train")
             .shuffle(seed=42)
-            .select(range(min(100000, len(load_dataset(self.docs_name_or_path, split="train")))))
+            .select(range(min(1000, len(load_dataset(self.docs_name_or_path, split="train")))))
         )
 
         knowledge_base = [
@@ -349,7 +349,7 @@ class EmbeddingModel(TransformersModel):
                 page_content=doc["text"],
                 metadata={"source": doc["source"]}) for doc in tqdm(ds, desc="Loading KB")
         ]
-
+        
         docs_processed = self._split_documents(
              self._max_length, knowledge_base)
 
@@ -418,8 +418,11 @@ class EmbeddingModel(TransformersModel):
             elif index_key.startswith("IVF"): # Only train if IVF and enough data
                 res = faiss.StandardGpuResources()
                 device_id = 0  # or whichever GPU you want
-                index = faiss.index_cpu_to_gpu(res, device_id, index)
-                index.train(embeddings_np)
+                gpu_index = faiss.index_cpu_to_gpu(res, device_id, index)
+                gpu_index.train(embeddings_np)
+                index = faiss.index_gpu_to_cpu(gpu_index)
+                del gpu_index  # delete GPU index
+                res.noTempMemory()  # release FAISS GPU memory pools
 
         logger.info(f"Adding vectors to FAISS index ({index_key})...")
         index.add(np.asarray(embeddings, dtype="float32"))
