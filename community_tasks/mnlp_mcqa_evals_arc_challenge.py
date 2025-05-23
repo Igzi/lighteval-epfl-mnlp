@@ -7,13 +7,13 @@ def mmlu_harness(line, task_name: str = None):
     topic = "knowledge and kills in advanced master-level STEM courses"
     prompt = f"The following are multiple choice questions (with answers) about {topic.replace('_', ' ')}.\n\n"
     prompt += line["question"] + "\n"
-    prompt += "".join([f"{key}. {choice}\n" for key, choice in zip(LETTER_INDICES, line["choices"])])
+    prompt += "".join([f"{key}. {choice}\n" for key, choice in zip(LETTER_INDICES, line["choices"]["text"])])
     prompt += "Answer:"
     answer = line["answerKey"]
     if 'A' <= answer[0] <= 'Z':
         gold_ix = LETTER_INDICES.index(line["answerKey"])
     else:
-        gold_ix = int(answer)
+        gold_ix = int(answer) - 1
 
     return Doc(
         task_name=task_name,

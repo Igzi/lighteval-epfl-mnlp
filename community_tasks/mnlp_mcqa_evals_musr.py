@@ -2,15 +2,18 @@ from lighteval.tasks.requests import Doc
 from lighteval.metrics.metrics import Metrics
 from lighteval.tasks.default_prompts import LETTER_INDICES
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
+import ast
 
 def mmlu_harness(line, task_name: str = None):
     topic = "knowledge and kills in advanced master-level STEM courses"
     prompt = f"The following are multiple choice questions (with answers) about {topic.replace('_', ' ')}.\n\n"
     prompt += line["question"] + "\n"
-    prompt += "".join([f"{key}. {choice}\n" for key, choice in zip(LETTER_INDICES, line["choices"])])
+    choices = ast.literal_eval(line["choices"])
+    prompt += "".join([f"{key}. {choice}\n" for key, choice in zip(LETTER_INDICES, choices)])
     prompt += "Answer:"
     gold_ix = line["answer_index"]
-
+    doc_choices = [f" {LETTER_INDICES[i]}" for i in range(len(choices))]
+    
     return Doc(
         task_name=task_name,
         query=prompt,
