@@ -3,7 +3,6 @@ from lighteval.metrics.metrics import Metrics
 from lighteval.tasks.default_prompts import LETTER_INDICES
 from lighteval.tasks.lighteval_task import LightevalTaskConfig
 from .mnlp_mcqa_evals_mmlu import task_mmlu
-from .mnlp_mcqa_evals_mmlu_reasoning import task_mmlu_reasoning
 from .mnlp_mcqa_evals_mmlu_pro import task_mmlu_pro
 from .mnlp_mcqa_evals_arc_easy import task_arc_easy
 from .mnlp_mcqa_evals_arc_challenge import task_arc_challenge
@@ -43,4 +42,4 @@ task_example = LightevalTaskConfig(
 )
 
 # STORE YOUR EVALS
-TASKS_TABLE = [task_example, task_mmlu, task_mmlu_pro, task_arc_easy, task_arc_challenge, task_gpqa, task_musr, task_nlp4education, task_mmlu_reasoning]
+TASKS_TABLE = [task_example, task_mmlu, task_mmlu_pro, task_arc_easy, task_arc_challenge, task_gpqa, task_musr, task_nlp4education]
